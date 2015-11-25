@@ -1,0 +1,5 @@
+ 
+1) mejorar estructura de datos para propagar. lista de cuando aparece negativo y cuando
+positivo para cada variable
+
+2) mejorar heuristica(getNextDecisionLiteral)

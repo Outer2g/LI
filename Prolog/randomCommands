@@ -1,0 +1,6 @@
+member = pertenece
+append = concatenacion
+is = evalua expresion derecha, unifica con el resultado
+! = operador de corte(corta la pila de backtrack para dicho Statement)
+
+entrar interprete: swipl	

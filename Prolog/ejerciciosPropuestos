@@ -1,0 +1,14 @@
+3 dados: Azul,Rojo,Naranja
+
+Rojo gana a naranja gana a Azul . Un dado gana a otro si le supera en 5 de los 9 casos, numeros de 1-9, cada
+dado tiene un numero que sale dos veces en ese dado(cada dado tendra 3 numeros). Escribe un programa en prolog
+que demuestre esto.
+
+
+Cancer en España y portugal:
+
+España: A = Fumadores con cancer, B= Fumadores sin cancer. C= no fumadores con cancer, D= no fumadores sin cancer
+A/B>C/D
+Portugal: R=,F,G,H R/F>G/H
+
+en cambio si se suman podemos tener el caso contrario. Demostrar a partir de prolog
