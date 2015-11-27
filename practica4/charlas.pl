@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 solucionOptima:-
 datosEjemplo([[X,Y,Z]|L]),
 nat(N),
@@ -22,7 +29,7 @@ writeSol([L1,L2,L3]):-pertConResto(X,L1,L11), qp(X,L1), nl,write('- '), write(X)
   qp(X,[X|_]).
   
 cost([],0).
-cost([X|L],C):- cost(L,C1), length(X,C2), C is C1 + C2. 
+cost([X|L],C):- cost(L,C1), length(X,C2), C is C1 + C2.
 
 possible([X,Y,Z],[S1,S2,S3],[S4,S5,S6]):-
   permutation([X,Y,Z],[A,B,C]), add(A,S1,S4),
