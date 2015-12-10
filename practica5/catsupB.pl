@@ -23,7 +23,7 @@ needed( 8,3).
 needed( 9,2).
 needed(10,1).  % late in the day: only 1 worker needed
 
-numEmployees(15).
+%numEmployees(15).
 numHours(100).
 numDays(10).
 maxConsecutiveDays(4).
@@ -41,22 +41,12 @@ hourOfDay(H,D):- day(D), hour(H), D is 1 + (H-1) div 10.
 %   2. wd-I-D means: "worker I works on day D"     
 %   3. w-I means: "worker I works"
 
-writeClauses(N):-     initClauseGeneration,
+writeClauses:-     initClauseGeneration,
     relationshipBetweenVars,
     enoughPeopleAtEachHour,
     notTooManyConsecutiveDays,
     maxHoursPerDay,
-    linkWorkers,
-    limitWorkers(N),
     true.
-    
-% link between variables wd and w
-linkWorkers :- employee(I), findall(w-I-D,day(D),Lits), expressOr(w-I,Lits),fail.
-linkWorkers.
-
-% theres no more than N workers in the solution
-limitWorkers(N):- findall(w-I,employee(I),Lits), atMost(N,Lits).
-
 %% Relationship between the variables wh and wd for each worker i: 
 %% For each day d with hours h1...h10, we express wd-i-d  <->  wh-i-h1 v...v wh-i-h10.
 relationshipBetweenVars:- employee(I), day(D), findall( wh-I-H, hourOfDay(H,D), Lits ), expressOr( wd-I-D, Lits ), fail.
@@ -131,21 +121,21 @@ displaySol2([wh-I-H|S]):-  write('              '), write(I), write(': hour '), 
 
 
 %%%%%% main:
-main:-  N is 1,symbolicOutput(1), !, writeClauses(N), halt.   % print the clauses in symbolic form and halt
-main:-  employee(X), write('trying for '), write(X),nl,
-	tell(clauses), writeClauses(X), told, % generate the (numeric) SAT clauses and call the solver
+main:-  symbolicOutput(1), !, writeClauses, halt.   % print the clauses in symbolic form and halt
+main:-  retractall(numEmployees(_)), assert(numEmployees(1)), callSAT.
+
+callSAT:- numEmployees(K), write('trying for '), write(K), nl,
+	tell(clauses), writeClauses, told,          % generate the (numeric) SAT clauses and call the solver
 	tell(header),  writeHeader,  told,
-	%numVars(N),numClauses(C),
-	%write('Generated '), write(C), write(' clauses over '), write(N), write(' variables. '),nl,
-	
+	numVars(N),numClauses(C),
+	write('Generated '), write(C), write(' clauses over '), write(N), write(' variables. '),nl,
 	shell('cat header clauses > infile.cnf',_),
 	shell('picosat -v -o model infile.cnf', Result),  % if sat: Result=10; if unsat: Result=20.
 	treatResult(Result),!.
 
-%treatResult(20):- write('unsat'), nl, halt.
-treatResult(20) :- write('not found'), nl,fail.
+treatResult(20):- retract(numEmployees(N)), N1 is N+1,
+		    assert(numEmployees(N1)),callSAT.
 treatResult(10):- shell('cat model',_),	see(model), symbolicModel(M), seen, displaySol(M), halt.
-
 initClauseGeneration:-  %initialize all info about variables and clauses:
     retractall(numClauses(   _)), 
     retractall(numVars(      _)), 

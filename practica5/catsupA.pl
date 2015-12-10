@@ -23,7 +23,7 @@ needed( 8,3).
 needed( 9,2).
 needed(10,1).  % late in the day: only 1 worker needed
 
-numEmployees(15).
+%numEmployees(15).
 numHours(100).
 numDays(10).
 maxConsecutiveDays(4).
@@ -130,7 +130,9 @@ displaySol2([wh-I-H|S]):-  write('              '), write(I), write(': hour '), 
 %%%%%% main:
 
 main:-  symbolicOutput(1), !, writeClauses, halt.   % print the clauses in symbolic form and halt
-main:-  tell(clauses), writeClauses, told,          % generate the (numeric) SAT clauses and call the solver
+main:-  retractall(numEmployees(_)), assert(numEmployees(6)), callSAT.
+callSAT:- numEmployees(K), write('trying for '), write(K), nl,
+	tell(clauses), writeClauses, told,          % generate the (numeric) SAT clauses and call the solver
 	tell(header),  writeHeader,  told,
 	numVars(N),numClauses(C),
 	write('Generated '), write(C), write(' clauses over '), write(N), write(' variables. '),nl,
@@ -138,8 +140,10 @@ main:-  tell(clauses), writeClauses, told,          % generate the (numeric) SAT
 	shell('picosat -v -o model infile.cnf', Result),  % if sat: Result=10; if unsat: Result=20.
 	treatResult(Result),!.
 
-treatResult(20):- write('unsat'), nl, halt.
-treatResult(10):- shell('cat model',_),	see(model), symbolicModel(M), seen, displaySol(M), halt.
+treatResult(20):- shell('cat model',_),	see(model), symbolicModel(M), seen, displaySol(M), halt.
+treatResult(10):- retract(numEmployees(N)), N1 is N-1,
+		    assert(numEmployees(N1)),callSAT.
+%treatResult(10):- shell('cat model',_),	see(model), symbolicModel(M), seen, displaySol(M), halt.
 
 initClauseGeneration:-  %initialize all info about variables and clauses:
     retractall(numClauses(   _)), 
