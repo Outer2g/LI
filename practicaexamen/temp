@@ -1,0 +1,55 @@
+{
+    "algoritmo": "tabla-hash-lista", 
+    "colisiones": 1059230, 
+    "tamano_diccionario": 5000000, 
+    "tamano_maximo_lista": 7, 
+    "tamano_tabla_hash": 10000000, 
+    "tamano_texto": 12500000, 
+    "total_comparaciones_busqueda_exito": 7822852, 
+    "total_comparaciones_busqueda_fracaso": 3101240, 
+    "total_comparaciones_creacion": 1247753
+}
+
+{
+    "algoritmo": "filtro-bloom", 
+    "hashes_busqueda_exito": 119026488, 
+    "hashes_busqueda_fracaso": 12059581, 
+    "numero_funciones": 19, 
+    "tamano_vector_bits": 143950217, 
+    "tama\u00f1o_diccionario": 5000000, 
+    "tama\u00f1o_texto": 12500000
+}
+
+{
+    "algoritmo": "tabla-hash-hopscotch", 
+    "tamano_diccionario": 5000000, 
+    "tamano_final_tabla_hash": 10000000, 
+    "tamano_texto": 12500000, 
+    "total_comparaciones_busqueda_exito": 7819334, 
+    "total_comparaciones_busqueda_fracaso": 3101240, 
+    "total_comparaciones_creacion": 1247726, 
+    "total_rehashes": 0, 
+    "total_saltos_creacion": 0
+}
+
+{
+    "algoritmo": "busqueda-binaria", 
+    "numero_comparaciones_busqueda_exito": 198569260, 
+    "numero_comparaciones_busqueda_fracaso": 210138643, 
+    "numero_comparaciones_ordenacion": 134359907, 
+    "numero_iteraciones_busqueda_exito": 133560495, 
+    "numero_iteraciones_busqueda_fracaso": 139187681, 
+    "tama\u00f1o_diccionario": 5000000, 
+    "tama\u00f1o_texto": 12500000
+}
+
+{
+    "algoritmo": "trie", 
+    "llamadas_a_creadora_nodo": 14716594, 
+    "llamadas_recursivas_busqueda_exito": 49281165, 
+    "llamadas_recursivas_busqueda_fracaso": 39027245, 
+    "llamadas_recursivas_creacion": 39333401, 
+    "tama\u00f1o_diccionario": 5000000, 
+    "tama\u00f1o_texto": 12500000
+}
+
